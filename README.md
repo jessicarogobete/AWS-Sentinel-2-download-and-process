@@ -5,20 +5,20 @@ This project downloads Sentinel-2 data using an AWS EC2 instance, processes the 
 
 ## Installation Instructions
 
-1.	Log in to Amazon EC2 and launch new Ubuntu instance
-a.	Pick your instance type (I used t3.2xlarge) and storage. Uncheck the “Delete on Termination” box when adding your storage volume.
-b.	For Step 6: Configure Security group, add the following rule:
-Type: Custom TCP Rule
-Port Range: 5901
-Source: Anywhere
-c.	After review and launch, create a new key file and save it to your computer (note where it is saved)
+1. Log in to Amazon EC2 and launch new Ubuntu instance
+    - Pick your instance type (I used t3.2xlarge) and storage. Uncheck the “Delete on Termination” box when adding your storage volume.
+    - For Step 6: Configure Security group, add the following rule:
+        Type: Custom TCP Rule
+        Port Range: 5901
+        Source: Anywhere
+    - After review and launch, create a new key file and save it to your computer (note where it is saved)
 2.	Download PuTTy to connect to the EC2 instance
-a.	In PuTTy, enter public DNS of instance under Host Name
-b.	Switch to Connection category and enter how many seconds you want between keepalives
-c.	Under Connection, expand the SSH sub-menu and go to Auth
-d.	Attach your instance private key file
-e.	Under Tunnels, add source port: 5902 with destination: <your instance’s IP address>:5901
-f.	Save the session then click open
+    - In PuTTy, enter public DNS of instance under Host Name
+	- Switch to Connection category and enter how many seconds you want between keepalives
+	- Under Connection, expand the SSH sub-menu and go to Auth
+	- Attach your instance private key file
+	- Under Tunnels, add source port: 5902 with destination: <your instance’s IP address>:5901
+	- Save the session then click open
 g.	When prompted for username, type ubuntu
 3.	For a GUI, download TightVNC for Windows or VNCViewer for Linux
 a.	The address/name you want to connect to will be localhost:5902
