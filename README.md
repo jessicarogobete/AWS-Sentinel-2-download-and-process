@@ -19,17 +19,17 @@ This project downloads Sentinel-2 data using an AWS EC2 instance, processes the 
 	- Attach your instance private key file
 	- Under Tunnels, add source port: 5902 with destination: <your instance’s IP address>:5901
 	- Save the session then click open
-g.	When prompted for username, type ubuntu
+	- When prompted for username, type ubuntu
 3.	For a GUI, download TightVNC for Windows or VNCViewer for Linux
-a.	The address/name you want to connect to will be localhost:5902
-b.	https://medium.com/@s.on/running-ubuntu-desktop-gui-aws-ec2-instance-on-windows-3d4d070da434 for more detailed instructions
+	- The address/name you want to connect to will be localhost:5902
+	- https://medium.com/@s.on/running-ubuntu-desktop-gui-aws-ec2-instance-on-windows-3d4d070da434 for more detailed instructions
 4.	Download Filezilla for file transfer between your computer and EC2 Instance
-a.	To connect to your instance, open the site manager and add a new site as follows:
-Host: <your instance’s Public DNS>
-Port: 22
-Logon Type: Key File
-User: ubuntu
-b.	Attach your instance key file
+	- To connect to your instance, open the site manager and add a new site as follows:
+		Host: <your instance’s Public DNS>
+		Port: 22
+		Logon Type: Key File
+		User: ubuntu
+	- Attach your instance key file
 
 5.	Transfer 7_Sen2cor_SL2P directory to instance with Filezilla
 6.	Remove Anaconda3 folder and edit ~/.profile file to prepend /home/ubuntu/anaconda2 to PATH so that when you call python from the command line it is the right version
