@@ -5,6 +5,7 @@ This project downloads Sentinel-2 data using an AWS EC2 instance, processes the 
 
 ## Installation Instructions
 
+### Preparing your EC2 Instance
 1. Log in to Amazon EC2 and launch new Ubuntu instance
     - Pick your instance type (I used t3.2xlarge) and storage. Uncheck the “Delete on Termination” box when adding your storage volume.
     - For Step 6: Configure Security group, add the following rule:
@@ -31,6 +32,7 @@ This project downloads Sentinel-2 data using an AWS EC2 instance, processes the 
 		- User: ubuntu
 	- Attach your instance key file
 
+### Preparing your environment to run s2 toolbox processing
 5.	Transfer 7_Sen2cor_SL2P directory to instance with Filezilla
 6.	Remove Anaconda3 folder and edit ~/.profile file to prepend /home/ubuntu/anaconda2 to PATH so that when you call python from the command line it is the right version
 
@@ -53,7 +55,7 @@ which python
 my own path is for example (note this path for later)
 /home/ndjamai/anaconda2/bin/python
 
-SNAP
+Installing SNAP:
 
 mkdir /home/ndjamai/SNAP
 cd /home/ndjamai/SNAP
@@ -66,7 +68,7 @@ go to snappy/snappy folder and run
 python setup.py install
 copy snappy folder to /home/ubuntu/anaconda2/lib/python2.7/site-packages
 
-SEN2COR
+Installing SEN2COR:
 
 mkdir /home/ndjamai/SEN2COR
 cd /home/ndjamai/SEN2COR
@@ -90,12 +92,13 @@ export GDAL_DATA=/home/ndjamai/anaconda2/lib/python2.7/site-packages/sen2cor-2.4
 downgrade anaconda packages so they are compatible:
 conda install gdal=2.1.0
 
-allow L2A_Process.py to  be run:
+allow L2A_Process.py script to  be run:
 chmod +x /home/ndjamai/anaconda2/lib/python2.7/site-packages/sen2cor-2.4.0-py2.7.egg/sen2cor/L2A_Process.py
 
 Now you can check sen2cor with this command line:
 L2A_Process
 
+### Set-up for SL2P biophysical parameter estimation
 8.	Install Matlab runtime from https://www.mathworks.com/products/compiler/matlab-runtime.html
 The command line install instructions are here:
 https://www.mathworks.com/help/compiler/install-the-matlab-runtime.html
@@ -109,10 +112,13 @@ def __init__(self,
     include_lsb=True,
     os_release_file='',
     distro_release_file=''):
+	
+### Set up AWS CLI for upload of data to bucket
 10.	Run aws configure
 11.	Run main.py from 7_Sen2cor_SL2P
 
-To access your EC2 Instance after set-up:
+
+## To access your EC2 Instance after set-up:
 1.	Open PuTTy
 2.	Click your saved session, then click Load
 3.	Select Open
@@ -121,6 +127,8 @@ After connecting to the instance with PuTTy, the GUI can be accessed by:
 1.	Opening VNCViewer
 2.	Either loading the previously saved session OR typing localhost:5902 in the address bar
 3.	It will prompt for your password before opening the GUI window
+
+
 If something goes wrong with the GUI, close the window and in the PuTTy terminal window, type the following commands:
 vncserver –kill :1
 vncserver –geometry <the dimensions of your monitor> :1
