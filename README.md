@@ -105,6 +105,8 @@ L2A_Process
 
 ### Set-up for SL2P biophysical parameter estimation
 8.	Install Matlab runtime from https://www.mathworks.com/products/compiler/matlab-runtime.html
+    - mkdir /home/ubuntu/temp
+    - wget http://ssd.mathworks.com/supportfiles/downloads/R2018b/deployment_files/R2018b/installers/glnxa64/MCR_R2018b_glnxa64_installer.zip
 The command line install instructions are here:
 https://www.mathworks.com/help/compiler/install-the-matlab-runtime.html
 
