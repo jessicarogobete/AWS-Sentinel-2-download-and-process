@@ -48,10 +48,10 @@ For installation of ubuntu 16.10 with sen2cor 2.4.0 and Snap
 I will share all my command line.
 With this way, we obtain a functional Production server for L2A sentinel products
 
-Installation of SSH (for remote access to the server):
-sudo apt-get install ssh
+#### Installation of SSH (for remote access to the server):
+    - sudo apt-get install ssh
 
-Test anaconda
+#### Test anaconda
 in a terminal enter:
 python
 it will open an interpreter with anaconda mentionned
@@ -60,7 +60,7 @@ which python
 my own path is for example (note this path for later)
 /home/ndjamai/anaconda2/bin/python
 
-Installing SNAP:
+#### Installing SNAP:
 
 mkdir /home/ndjamai/SNAP
 cd /home/ndjamai/SNAP
