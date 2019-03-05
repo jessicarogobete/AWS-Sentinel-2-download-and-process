@@ -25,10 +25,10 @@ This project downloads Sentinel-2 data using an AWS EC2 instance, processes the 
 	- https://medium.com/@s.on/running-ubuntu-desktop-gui-aws-ec2-instance-on-windows-3d4d070da434 for more detailed instructions
 4.	Download Filezilla for file transfer between your computer and EC2 Instance
 	- To connect to your instance, open the site manager and add a new site as follows:
-		Host: <your instance’s Public DNS>
-		Port: 22
-		Logon Type: Key File
-		User: ubuntu
+		- Host: <your instance’s Public DNS>
+		- Port: 22
+		- Logon Type: Key File
+		- User: ubuntu
 	- Attach your instance key file
 
 5.	Transfer 7_Sen2cor_SL2P directory to instance with Filezilla
