@@ -51,58 +51,55 @@ With this way, we obtain a functional Production server for L2A sentinel product
 #### Installation of SSH (for remote access to the server):
     - sudo apt-get install ssh
 
-#### Test anaconda
-in a terminal enter:
- - python
-it will open an interpreter with anaconda mentioned.
- Now check the path of python
-- which python
-my own path is for example (note this path for later)
-: /home/ndjamai/anaconda2/bin/python
+#### Test anaconda with the following terminal commands:
+    - python
+    - which python
+This opens an interpreter with anaconda, then checks the path of python . My own path is, for example, (note this path for later)
+: 
+    - /home/ndjamai/anaconda2/bin/python
 
 #### Installing SNAP:
 
-- mkdir /home/ndjamai/SNAP
-- cd /home/ndjamai/SNAP
-- wget http://step.esa.int/downloads/5.0/installers/esa-snap_all_unix_5_0.sh
-- sudo sh esa-snap_all_unix_5_0.sh -c
+    - mkdir /home/ndjamai/SNAP
+    - cd /home/ndjamai/SNAP
+    - wget http://step.esa.int/downloads/5.0/installers/esa-snap_all_unix_5_0.sh
+    - sudo sh esa-snap_all_unix_5_0.sh -c
 
-when snap ask about configuration of python, do it and enter the path of python you have noted during anaconda install (in my case: /home/geouser/anaconda2/bin/python)
-
-go to snappy/snappy folder and run
- - python setup.py install
-copy snappy folder to:
+When snap asks about configuration of python, do it and enter the path of python you have noted during anaconda installation (in my case: /home/geouser/anaconda2/bin/python). 
+##### Go to snappy/snappy folder and run
+    - python setup.py install
+##### Copy snappy folder to:
 - /home/ubuntu/anaconda2/lib/python2.7/site-packages
 
-Installing SEN2COR:
+#### Installing SEN2COR:
 
-mkdir /home/ndjamai/SEN2COR
-cd /home/ndjamai/SEN2COR
-cd /home/ndjamai/SEN2COR
-copy over sen2cor-2.4.0.tar.gz file to instance from your computer
-tar xvzf sen2cor-2.4.0.tar.gz
-cd sen2cor-2.4.0
+        mkdir /home/ndjamai/SEN2COR
+        cd /home/ndjamai/SEN2COR
+	cd /home/ndjamai/SEN2COR
+	copy over sen2cor-2.4.0.tar.gz file to instance from your computer
+	tar xvzf sen2cor-2.4.0.tar.gz
+	cd sen2cor-2.4.0
+	python setup.py install
+	
+If there is an error with the last step, you have probably a problem with your python path. 
 
-Be careful with the next step: if there is an error you have probably a problem with your python path...
-python setup.py install
+##### define environment variables:
+	sudo nano /etc/bash.bashrc
 
-Next you have to define environment variables:
-sudo nano /etc/bash.bashrc
+add the following lines at the end of the doc , save and quit:
 
-add the following lines at the end of the doc , save and quit
+ - export SEN2COR_HOME=/home/ndjamai/sen2cor
+ - export SEN2COR_BIN=/home/ndjamai/anaconda2/lib/python2.7/site-packages/sen2cor-2.4.0-py2.7.egg/sen2cor
+ - export GDAL_DATA=/home/ndjamai/anaconda2/lib/python2.7/site-packages/sen2cor-2.4.0-py2.7.egg/sen2cor/cfg/gdal_data
 
-export SEN2COR_HOME=/home/ndjamai/sen2cor
-export SEN2COR_BIN=/home/ndjamai/anaconda2/lib/python2.7/site-packages/sen2cor-2.4.0-py2.7.egg/sen2cor
-export GDAL_DATA=/home/ndjamai/anaconda2/lib/python2.7/site-packages/sen2cor-2.4.0-py2.7.egg/sen2cor/cfg/gdal_data
+##### downgrade anaconda packages so they are compatible:
+	conda install gdal=2.1.0
 
-downgrade anaconda packages so they are compatible:
-conda install gdal=2.1.0
+##### allow L2A_Process.py script to  be run:
+	chmod +x /home/ndjamai/anaconda2/lib/python2.7/site-packages/sen2cor-2.4.0-py2.7.egg/sen2cor/L2A_Process.py
 
-allow L2A_Process.py script to  be run:
-chmod +x /home/ndjamai/anaconda2/lib/python2.7/site-packages/sen2cor-2.4.0-py2.7.egg/sen2cor/L2A_Process.py
-
-Now you can check sen2cor with this command line:
-L2A_Process
+##### Now you can check sen2cor with this command line:
+	L2A_Process
 
 ### Set-up for SL2P biophysical parameter estimation
 8.	Install Matlab runtime from https://www.mathworks.com/products/compiler/matlab-runtime.html
