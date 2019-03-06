@@ -53,25 +53,26 @@ With this way, we obtain a functional Production server for L2A sentinel product
 
 #### Test anaconda
 in a terminal enter:
-python
-it will open an interpreter with anaconda mentionned
-now check the path of python
-which python
+ - python
+it will open an interpreter with anaconda mentioned.
+ Now check the path of python
+- which python
 my own path is for example (note this path for later)
-/home/ndjamai/anaconda2/bin/python
+: /home/ndjamai/anaconda2/bin/python
 
 #### Installing SNAP:
 
-mkdir /home/ndjamai/SNAP
-cd /home/ndjamai/SNAP
-wget http://step.esa.int/downloads/5.0/installers/esa-snap_all_unix_5_0.sh
-sudo sh esa-snap_all_unix_5_0.sh -c
+- mkdir /home/ndjamai/SNAP
+- cd /home/ndjamai/SNAP
+- wget http://step.esa.int/downloads/5.0/installers/esa-snap_all_unix_5_0.sh
+- sudo sh esa-snap_all_unix_5_0.sh -c
 
-when snap ask about configuration of python, do it and enter the path of python you have noted during anaconda install(in my case: /home/geouser/anaconda2/bin/python)
+when snap ask about configuration of python, do it and enter the path of python you have noted during anaconda install (in my case: /home/geouser/anaconda2/bin/python)
 
 go to snappy/snappy folder and run
-python setup.py install
-copy snappy folder to /home/ubuntu/anaconda2/lib/python2.7/site-packages
+ - python setup.py install
+copy snappy folder to:
+- /home/ubuntu/anaconda2/lib/python2.7/site-packages
 
 Installing SEN2COR:
 
