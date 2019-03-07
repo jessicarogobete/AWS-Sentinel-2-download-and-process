@@ -49,27 +49,27 @@ I will share all my command line.
 With this way, we obtain a functional Production server for L2A sentinel products
 
 #### Installation of SSH (for remote access to the server):
-    - sudo apt-get install ssh
+    sudo apt-get install ssh
 
 #### Test anaconda with the following terminal commands:
-    - python
-    - which python
+    python
+    which python
 This opens an interpreter with anaconda, then checks the path of python . My own path is, for example, (note this path for later)
 : 
     - /home/ndjamai/anaconda2/bin/python
 
 #### Installing SNAP:
 
-    - mkdir /home/ndjamai/SNAP
-    - cd /home/ndjamai/SNAP
-    - wget http://step.esa.int/downloads/5.0/installers/esa-snap_all_unix_5_0.sh
-    - sudo sh esa-snap_all_unix_5_0.sh -c
+    mkdir /home/ndjamai/SNAP
+    cd /home/ndjamai/SNAP
+    wget http://step.esa.int/downloads/5.0/installers/esa-snap_all_unix_5_0.sh
+    sudo sh esa-snap_all_unix_5_0.sh -c
 
 When snap asks about configuration of python, do it and enter the path of python you have noted during anaconda installation (in my case: /home/geouser/anaconda2/bin/python). 
 ##### Go to snappy/snappy folder and run
-    - python setup.py install
+    python setup.py install
 ##### Copy snappy folder to:
-- /home/ubuntu/anaconda2/lib/python2.7/site-packages
+    /home/ubuntu/anaconda2/lib/python2.7/site-packages
 
 #### Installing SEN2COR:
 
@@ -105,18 +105,19 @@ add the following lines at the end of the doc , save and quit:
 8.	Install Matlab runtime from https://www.mathworks.com/products/compiler/matlab-runtime.html
     - mkdir /home/ubuntu/temp
     - wget http://ssd.mathworks.com/supportfiles/downloads/R2018b/deployment_files/R2018b/installers/glnxa64/MCR_R2018b_glnxa64_installer.zip
-The command line install instructions are here:
+The command line install instructions can be found at 
 https://www.mathworks.com/help/compiler/install-the-matlab-runtime.html
 
-a.	After installation, add line to ~/.profile to append LD_LIBRARY_PATH environment variable with path given in installation
-Export LD_LIBRARY_PATH=$LD_LIBRARY_PATH/<path given at end of installation>
+ - After installation, add line to ~/.profile to append LD_LIBRARY_PATH environment variable with path given in installation
+ - Export LD_LIBRARY_PATH=$LD_LIBRARY_PATH/<path given at end of installation>
 9.	Install AWS CLI with pip install awscli –upgrade –user
-a.	If pip gives error, open /home/ubuntu/anaconda2/lib/python2.7/site-packages/pip/_vendor/distro.py
-b.	Edit line in __init__ method to be:
-def __init__(self,
-    include_lsb=True,
-    os_release_file='',
-    distro_release_file=''):
+ - 	If pip gives error, open /home/ubuntu/anaconda2/lib/python2.7/site-packages/pip/_vendor/distro.py
+
+#### If pip gives error, open /home/ubuntu/anaconda2/lib/python2.7/site-packages/pip/_vendor/distro.py and Edit line in __init__ method to be:
+	def __init__(self,
+	    include_lsb=True,
+	    os_release_file='',
+	    distro_release_file=''):
 	
 ### Set up AWS CLI for upload of data to bucket
 10.	Run aws configure
