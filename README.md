@@ -5,7 +5,25 @@ This project runs a python script on an AWS EC2 instance which downloads Sentine
 
 ## Use instructions
 
-First you need an EC2 ubuntu instance configured to run all the processes required by the script. The public AMI mentioned earlier is the simplest way to prepare this, but instructions are also provided below to set up the instance from scratch. Once the instance is set up, you only need to alter the parameters for the data you wish to download at the start of the main script, then call the script in the terminal with 
+First you need an EC2 ubuntu instance configured to run all the processes required by the script. The public AMI mentioned earlier is the simplest way to prepare this, but instructions are also provided below to set up the instance from scratch.
+
+### To access your EC2 Instance after set-up:
+1.	Open PuTTy
+2.	Click your saved session, then click Load
+3.	Select Open
+4.	When prompted for username, enter ubuntu
+After connecting to the instance with PuTTy, the GUI can be accessed by:
+1.	Opening VNCViewer
+2.	Either loading the previously saved session OR typing localhost:5902 in the address bar
+3.	It will prompt for your password before opening the GUI window
+
+If something goes wrong with the GUI, close the window and in the PuTTy terminal window, type the following commands:
+```
+vncserver –kill :1
+vncserver –geometry <the dimensions of your monitor> :1
+```
+This will restart the VNC connection and when  you re-connect through VNCViewer it should work properly.
+ Once the instance is set up, you only need to alter the parameters for the data you wish to download at the start of the main script, then call the script in the terminal with 
 
 ```
 $ python main.py
@@ -133,18 +151,4 @@ def __init__(self,
 11.	Run main.py from 7_Sen2cor_SL2P
 
 
-## To access your EC2 Instance after set-up:
-1.	Open PuTTy
-2.	Click your saved session, then click Load
-3.	Select Open
-4.	When prompted for username, enter ubuntu
-After connecting to the instance with PuTTy, the GUI can be accessed by:
-1.	Opening VNCViewer
-2.	Either loading the previously saved session OR typing localhost:5902 in the address bar
-3.	It will prompt for your password before opening the GUI window
 
-
-If something goes wrong with the GUI, close the window and in the PuTTy terminal window, type the following commands:
-vncserver –kill :1
-vncserver –geometry <the dimensions of your monitor> :1
-This will restart the VNC connection and when  you re-connect through VNCViewer it should work properly.
