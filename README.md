@@ -1,7 +1,7 @@
 # AWS-Sentinel-2-download-and-process
 
 ## What is it?
-This project downloads Sentinel-2 data using an AWS EC2 instance, processes the L1C data to L2A data, then estimates biophysical parameters from the L2A data. The main script uploads each level of data to your chosen S3 bucket.
+This project downloads Sentinel-2 data using an AWS EC2 instance, processes the L1C data to L2A data with Sen2cor, then estimates biophysical parameters from the L2A data. The main script uploads each level of data to your chosen S3 bucket. Currently an AMI which works with this script is available as Sentinel-2 SL2P.
 
 ## Installation Instructions
 
@@ -23,7 +23,7 @@ This project downloads Sentinel-2 data using an AWS EC2 instance, processes the 
 	- When prompted for username, type ubuntu
 3.	For a GUI, download TightVNC for Windows or VNCViewer for Linux
 	- The address/name you want to connect to will be localhost:5902
-	- https://medium.com/@s.on/running-ubuntu-desktop-gui-aws-ec2-instance-on-windows-3d4d070da434 for more detailed instructions
+	- See https://medium.com/@s.on/running-ubuntu-desktop-gui-aws-ec2-instance-on-windows-3d4d070da434 for more detailed instructions
 4.	Download Filezilla for file transfer between your computer and EC2 Instance
 	- To connect to your instance, open the site manager and add a new site as follows:
 		- Host: <your instance’s Public DNS>
@@ -35,11 +35,13 @@ This project downloads Sentinel-2 data using an AWS EC2 instance, processes the 
 ### Preparing your environment to run s2 toolbox processing
 5.	Transfer 7_Sen2cor_SL2P directory to instance with Filezilla
 6.	Remove Anaconda3 folder
-    - $ rm -rf anaconda3
+```     $ rm -rf anaconda3 ```
 7. edit ~/.profile file to prepend /home/ubuntu/anaconda2 to PATH so that when you call python from the command line it is the right version
-    - $ nano ~/.profile
-    - cmd + X to save and close the file
-    - restart your PuTTy session to trigger the new PATH
+```
+    $ nano ~/.profile
+    cmd + X to save and close the file
+    restart your PuTTy session to trigger the new PATH
+```
 
 7.	Follow the next instructions: 
 http://forum.step.esa.int/t/proposition-of-a-step-by-step-tuto-to-install-sen2cor-on-ubuntu-vm-16-10/4370
@@ -55,8 +57,7 @@ With this way, we obtain a functional Production server for L2A sentinel product
     python
     which python
 This opens an interpreter with anaconda, then checks the path of python . My own path is, for example, (note this path for later)
-: 
-    - /home/ndjamai/anaconda2/bin/python
+: `/home/ndjamai/anaconda2/bin/python`
 
 #### Installing SNAP:
 
@@ -72,30 +73,30 @@ When snap asks about configuration of python, do it and enter the path of python
     /home/ubuntu/anaconda2/lib/python2.7/site-packages
 
 #### Installing SEN2COR:
-
-        mkdir /home/ndjamai/SEN2COR
-        cd /home/ndjamai/SEN2COR
+	mkdir /home/ndjamai/SEN2COR
+	cd /home/ndjamai/SEN2COR
 	cd /home/ndjamai/SEN2COR
 	copy over sen2cor-2.4.0.tar.gz file to instance from your computer
 	tar xvzf sen2cor-2.4.0.tar.gz
 	cd sen2cor-2.4.0
 	python setup.py install
 	
-If there is an error with the last step, you have probably a problem with your python path. 
+- If there is an error with the last step, you have probably a problem with your python path. 
 
-##### define environment variables:
-	sudo nano /etc/bash.bashrc
+- Define environment variables:
+```
+sudo nano /etc/bash.bashrc
+```
+- add the following lines at the end of the doc , save and quit:
 
-add the following lines at the end of the doc , save and quit:
+  - export SEN2COR_HOME=/home/ndjamai/sen2cor
+  - export SEN2COR_BIN=/home/ndjamai/anaconda2/lib/python2.7/site-packages/sen2cor-2.4.0-py2.7.egg/sen2cor
+  - export GDAL_DATA=/home/ndjamai/anaconda2/lib/python2.7/site-packages/sen2cor-2.4.0-py2.7.egg/sen2cor/cfg/gdal_data
 
- - export SEN2COR_HOME=/home/ndjamai/sen2cor
- - export SEN2COR_BIN=/home/ndjamai/anaconda2/lib/python2.7/site-packages/sen2cor-2.4.0-py2.7.egg/sen2cor
- - export GDAL_DATA=/home/ndjamai/anaconda2/lib/python2.7/site-packages/sen2cor-2.4.0-py2.7.egg/sen2cor/cfg/gdal_data
-
-##### downgrade anaconda packages so they are compatible:
+ Downgrade anaconda packages so they are compatible:
 	conda install gdal=2.1.0
 
-##### allow L2A_Process.py script to  be run:
+##### Allow L2A_Process.py script to  be run:
 	chmod +x /home/ndjamai/anaconda2/lib/python2.7/site-packages/sen2cor-2.4.0-py2.7.egg/sen2cor/L2A_Process.py
 
 ##### Now you can check sen2cor with this command line:
@@ -111,14 +112,14 @@ https://www.mathworks.com/help/compiler/install-the-matlab-runtime.html
  - After installation, add line to ~/.profile to append LD_LIBRARY_PATH environment variable with path given in installation
  - Export LD_LIBRARY_PATH=$LD_LIBRARY_PATH/<path given at end of installation>
 9.	Install AWS CLI with pip install awscli –upgrade –user
- - 	If pip gives error, open /home/ubuntu/anaconda2/lib/python2.7/site-packages/pip/_vendor/distro.py
-
-#### If pip gives error, open /home/ubuntu/anaconda2/lib/python2.7/site-packages/pip/_vendor/distro.py and Edit line in __init__ method to be:
-	def __init__(self,
+ - If pip gives error, open `/home/ubuntu/anaconda2/lib/python2.7/site-packages/pip/_vendor/distro.py`
+ - edit the following line in __init__ method to be:
+```
+def __init__(self,
 	    include_lsb=True,
 	    os_release_file='',
 	    distro_release_file=''):
-	
+```	
 ### Set up AWS CLI for upload of data to bucket
 10.	Run aws configure
 11.	Run main.py from 7_Sen2cor_SL2P
