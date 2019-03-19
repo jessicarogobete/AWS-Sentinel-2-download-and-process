@@ -1,7 +1,15 @@
 # AWS-Sentinel-2-download-and-process
 
 ## What is it?
-This project downloads Sentinel-2 data using an AWS EC2 instance, processes the L1C data to L2A data with Sen2cor, then estimates biophysical parameters from the L2A data. The main script uploads each level of data to your chosen S3 bucket. Currently an AMI which works with this script is available as Sentinel-2 SL2P.
+This project runs a python script on an AWS EC2 instance which downloads Sentinel-2 data, processes the L1C data to L2A data with Sen2cor, then estimates biophysical parameters from the L2A data. The main script uploads each level of data to your chosen S3 bucket. Currently an AMI which works with this script is available as Sentinel-2 SL2P.
+
+## Use instructions
+
+First you need an EC2 ubuntu instance configured to run all the processes required by the script. The public AMI mentioned earlier is the simplest way to prepare this, but instructions are also provided below to set up the instance from scratch. Once the instance is set up, you only need to alter the parameters for the data you wish to download at the start of the main script, then call the script in the terminal with 
+
+```
+$ python main.py
+```
 
 ## Installation Instructions
 
