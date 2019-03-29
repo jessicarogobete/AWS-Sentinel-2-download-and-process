@@ -65,9 +65,10 @@ $ python main.py
 7. edit ~/.profile file to prepend /home/ubuntu/anaconda2 to PATH so that when you call python from the command line it is the right version
 ```
     $ nano ~/.profile
-    cmd + X to save and close the file
-    restart your PuTTy session to trigger the new PATH
+    
+    cmd + X 
 ```
+   This will save and close the file. Restart your PuTTy session to trigger the new PATH
 
 7.	Follow the next instructions: 
 http://forum.step.esa.int/t/proposition-of-a-step-by-step-tuto-to-install-sen2cor-on-ubuntu-vm-16-10/4370
@@ -89,7 +90,7 @@ This opens an interpreter with anaconda, then checks the path of python . My own
 
     mkdir /home/ubuntu/SNAP
     cd /home/ubuntu/SNAP
-    wget http://step.esa.int/downloads/5.0/installers/esa-snap_all_unix_6_0.sh
+    wget http://step.esa.int/downloads/6.0/installers/esa-snap_all_unix_6_0.sh
     sudo sh esa-snap_all_unix_6_0.sh -c
 
 When snap asks about configuration of python, do it and enter the path of python you have noted during anaconda installation (in my case: /home/ubuntu/anaconda3/bin/python). 
