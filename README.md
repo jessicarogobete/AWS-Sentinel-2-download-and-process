@@ -94,7 +94,7 @@ This opens an interpreter with anaconda, then checks the path of python . My own
     sudo sh esa-snap_all_unix_6_0.sh -c
 
 When snap asks about configuration of python, do it and enter the path of python you have noted during anaconda installation (in my case: /home/ubuntu/anaconda3/bin/python). 
-##### Go to snappy/snappy folder and run
+##### Go to snappy folder and run
     python setup.py install
 ##### Copy snappy folder to:
     /home/ubuntu/anaconda2/lib/python2.7/site-packages
