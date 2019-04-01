@@ -62,7 +62,7 @@ $ python main.py
 5.	Transfer 7_Sen2cor_SL2P directory to instance using Filezilla
 6. Create an anaconda environment with python 2.7 and the necessary libraries
 ```
-conda create -n <name of your environment (ex. 2.7)> python=2.7 gdal=2.1.0 pytables
+conda create -n 2.7 python=2.7 gdal=2.1.0 pytables
 source activate 2.7
 
 ```
@@ -97,17 +97,17 @@ sudo chown -R ubuntu:ubuntu /home/ubuntu/.snap
 - Navigate to SNAP installation directory, then run the snappy-conf file in the /bin directory to configure snap for python. This creates a snappy folder in conda environment
 ```
 cd /opt/snap/bin
-./snappy-conf /home/ubuntu/anaconda3/envs/py2.7/bin/python /home/ubuntu/anaconda3/envs/py2.7/lib/python2.7/site-packages
+./snappy-conf /home/ubuntu/anaconda3/envs/2.7/bin/python /home/ubuntu/anaconda3/envs/py2.7/lib/python2.7/site-packages
 ```
 Re-name snappy folders to snappy_esa so there is no interference with dask package, then alter the dask file to call snappy_esa instead of snappy
 ```
-mv /home/ubuntu/anaconda3/envs/py2.7/lib/python2.7/site-packages/snappy /anaconda3/envs/py2.7/lib/python2.7/site-packages/snappy_esa
-mv /home/ubuntu/anaconda3/envs/py2.7/lib/python2.7/site-packages/snappy_esa/snappy.ini /anaconda3/envs/py2.7/lib/python2.7/site-packages/snappy_esa.ini
-nano /home/ubuntu/anaconda3/envs/py2.7/lib/python2.7/site-packages/dask/bytes/compression.py
+mv /home/ubuntu/anaconda3/envs/2.7/lib/python2.7/site-packages/snappy /anaconda3/envs/py2.7/lib/python2.7/site-packages/snappy_esa
+mv /home/ubuntu/anaconda3/envs/2.7/lib/python2.7/site-packages/snappy_esa/snappy.ini /anaconda3/envs/py2.7/lib/python2.7/site-packages/snappy_esa.ini
+nano /home/ubuntu/anaconda3/envs/2.7/lib/python2.7/site-packages/dask/bytes/compression.py
 ```
 If in the folder /home/ubuntu/.snap/snap-python, there is no snappy folder, then copy it over
 ```
-cp /anaconda3/envs/py2.7/lib/python2.7/site-packages/snappy_esa /home/ubuntu/.snap/snap-python
+cp /anaconda3/envs/2.7/lib/python2.7/site-packages/snappy_esa /home/ubuntu/.snap/snap-python
 ```
 - Go to snappy folder and run
 ```
@@ -132,8 +132,8 @@ sudo nano /etc/bash.bashrc
 - add the following lines at the end of the doc , save and quit:
 
   - export SEN2COR_HOME=/home/ubuntu/sen2cor
-  - export SEN2COR_BIN=/home/ubuntu/anaconda2/lib/python2.7/site-packages/sen2cor-2.4.0-py2.7.egg/sen2cor
-  - export GDAL_DATA=/home/ubuntu/anaconda2/lib/python2.7/site-packages/sen2cor-2.4.0-py2.7.egg/sen2cor/cfg/gdal_data
+  - export SEN2COR_BIN=/home/ubuntu/anaconda3/envs/2.7/lib/python2.7/site-packages/sen2cor-2.4.0-py2.7.egg/sen2cor
+  - export GDAL_DATA=/home/ubuntu/anaconda3/envs/2.7/lib/python2.7/site-packages/sen2cor-2.4.0-py2.7.egg/sen2cor/cfg/gdal_data
 
 Install necessary python packages:
  ```
@@ -142,12 +142,6 @@ Install necessary python packages:
  pip install scikit-image
  pip install pebble
 ```
-**********
-Allow L2A_Process.py script to  be run:
-```
-chmod +x /home/ubuntu/anaconda2/lib/python2.7/site-packages/sen2cor-2.4.0-py2.7.egg/sen2cor/L2A_Process.py
-```
-**********
 Now you can check sen2cor with this command line:
 ```
 L2A_Process
@@ -175,12 +169,16 @@ def __init__(self,
 	    os_release_file='',
 	    distro_release_file=''):
 ```
+Deactivate the python 2.7 conda environment
+```
+source deactivate
+```
 
 ### Set up AWS CLI
 10.	Run aws configure
 
 ### Set up environment for downloading Sentinel-2 data from AWS S3 bucket
-Create an anaconda environment with python 3.7
+Create an anaconda environment with python 3.7. If the error with pip appears again, repeat the previous fix for it but in the new conda environment.
 ```
 conda create -n 3.7 python=3.7
 pip install sentinelhub
@@ -189,7 +187,11 @@ pip install geopandas
 pip install pebble
 pip install pytest-shutil
 ```
+Install aws cli and then configure it for your AWS account
+```
+pip install aws -- user --update
+aws configure
+```
 
-
-
+Running the main.sh bash script should now properly execute all the steps from downloading L1C Sentinel-2 data until it is transformed into data regarding biophysical parameters.
 
