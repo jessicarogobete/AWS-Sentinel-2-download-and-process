@@ -62,7 +62,8 @@ $ python main.py
 5.	Transfer 7_Sen2cor_SL2P directory to instance using Filezilla
 6. Create an anaconda environment with python 2.7 and the necessary libraries
 ```
-conda create -n <name of your environment (ex. 2.7)> python=2.7 
+conda create -n <name of your environment (ex. 2.7)> python=2.7
+```
 7. edit ~/.profile file to prepend /home/ubuntu/anaconda2 to PATH so that when you call python from the command line it is the right version
 ```
     $ nano ~/.profile
