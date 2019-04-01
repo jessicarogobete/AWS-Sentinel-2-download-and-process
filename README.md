@@ -142,6 +142,10 @@ Install necessary python packages:
  pip install scikit-image
  pip install pebble
 ```
+Make the L2A_Process script executable
+```
+chmod +x /home/ubuntu/anaconda3/envs/2.7/lib/python2.7/site-packages/sen2cor-2.4.0-py2.7.egg/sen2cor/L2A_Process.py
+```
 Now you can check sen2cor with this command line:
 ```
 L2A_Process
