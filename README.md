@@ -178,7 +178,6 @@ def __init__(self,
 
 ### Set up AWS CLI
 10.	Run aws configure
-11.	Run main.py from 7_Sen2cor_SL2P
 
 ### Set up environment for downloading Sentinel-2 data from AWS S3 bucket
 Create an anaconda environment with python 3.7
