@@ -121,24 +121,32 @@ sudo nano /etc/bash.bashrc
   - export GDAL_DATA=/home/ubuntu/anaconda2/lib/python2.7/site-packages/sen2cor-2.4.0-py2.7.egg/sen2cor/cfg/gdal_data
 
  Downgrade anaconda packages so they are compatible:
-	conda install gdal=2.1.0
-
-##### Allow L2A_Process.py script to  be run:
-	chmod +x /home/ubuntu/anaconda2/lib/python2.7/site-packages/sen2cor-2.4.0-py2.7.egg/sen2cor/L2A_Process.py
-
-##### Now you can check sen2cor with this command line:
-	L2A_Process
-
-### Set-up for SL2P biophysical parameter estimation
+ ```
+ conda install gdal=2.1.0
+```
+Allow L2A_Process.py script to  be run:
+```
+chmod +x /home/ubuntu/anaconda2/lib/python2.7/site-packages/sen2cor-2.4.0-py2.7.egg/sen2cor/L2A_Process.py
+```
+Now you can check sen2cor with this command line:
+```
+L2A_Process
+```
+###  Set-up for SL2P biophysical parameter estimation
 8.	Install Matlab runtime from https://www.mathworks.com/products/compiler/matlab-runtime.html
-    - mkdir /home/ubuntu/temp
-    - wget http://ssd.mathworks.com/supportfiles/downloads/R2018b/deployment_files/R2018b/installers/glnxa64/MCR_R2018b_glnxa64_installer.zip
-The command line install instructions can be found at 
+```
+mkdir /home/ubuntu/temp
+wget http://ssd.mathworks.com/supportfiles/downloads/R2018b/deployment_files/R2018b/installers/glnxa64/MCR_R2018b_glnxa64_installer.zip
+```
+- The command line install instructions can be found at 
 https://www.mathworks.com/help/compiler/install-the-matlab-runtime.html
 
  - After installation, add line to ~/.profile to append LD_LIBRARY_PATH environment variable with path given in installation
- - Export LD_LIBRARY_PATH=$LD_LIBRARY_PATH/<path given at end of installation>
-9.	Install AWS CLI with pip install awscli –upgrade –user
+ ```
+ sudo nano ~/.profile
+ Export LD_LIBRARY_PATH=$LD_LIBRARY_PATH/<path given at end of installation>
+```
+9.	Install AWS CLI with ```pip install awscli –upgrade –user```
  - If pip gives error, open `/home/ubuntu/anaconda2/lib/python2.7/site-packages/pip/_vendor/distro.py`
  - edit the following line in __init__ method to be:
 ```
