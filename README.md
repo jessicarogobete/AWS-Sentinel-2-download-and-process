@@ -140,6 +140,7 @@ Install necessary python packages:
  pip install psutil
  pip install scipy
  pip install scikit-image
+ pip install pebble
 ```
 **********
 Allow L2A_Process.py script to  be run:
@@ -173,10 +174,23 @@ def __init__(self,
 	    include_lsb=True,
 	    os_release_file='',
 	    distro_release_file=''):
-```	
-### Set up AWS CLI for upload of data to bucket
+```
+
+### Set up AWS CLI
 10.	Run aws configure
 11.	Run main.py from 7_Sen2cor_SL2P
+
+### Set up environment for downloading Sentinel-2 data from AWS S3 bucket
+Create an anaconda environment with python 3.7
+```
+conda create -n 3.7 python=3.7
+pip install sentinelhub
+pip install matplotlib
+pip install geopandas
+pip install pebble
+pip install pytest-shutil
+```
+
 
 
 
