@@ -62,29 +62,23 @@ $ python main.py
 5.	Transfer 7_Sen2cor_SL2P directory to instance using Filezilla
 6. Create an anaconda environment with python 2.7 and the necessary libraries
 ```
-conda create -n <name of your environment (ex. 2.7)> python=2.7
-```
-7. edit ~/.profile file to prepend /home/ubuntu/anaconda2 to PATH so that when you call python from the command line it is the right version
-```
-    $ nano ~/.profile
-    
-    cmd + X 
-```
-   This will save and close the file. Restart your PuTTy session to trigger the new PATH
+conda create -n <name of your environment (ex. 2.7)> python=2.7 gdal=2.1.0 pytables
+source activate 2.7
 
-7.	Follow the next instructions: 
-http://forum.step.esa.int/t/proposition-of-a-step-by-step-tuto-to-install-sen2cor-on-ubuntu-vm-16-10/4370
+```
 
-For installation of ubuntu 16.10 with sen2cor 2.4.0 and Snap
-I will share all my command line.
 With this way, we obtain a functional Production server for L2A sentinel products
 
-#### Installation of SSH (for remote access to the server):
-    sudo apt-get install ssh
+Installation of SSH (for remote access to the server):
+```
+sudo apt-get install ssh
+```
 
-#### Test anaconda with the following terminal commands:
-    python
-    which python
+Test anaconda with the following terminal commands:
+```
+python
+which python
+```
 This opens an interpreter with anaconda, then checks the path of python . My own path is, for example, (note this path for later)
 : `/home/ubuntu/anaconda2/bin/python`
 
@@ -95,11 +89,30 @@ This opens an interpreter with anaconda, then checks the path of python . My own
     wget http://step.esa.int/downloads/6.0/installers/esa-snap_all_unix_6_0.sh
     sudo sh esa-snap_all_unix_6_0.sh -c
 
-When snap asks about configuration of python, do it and enter the path of python you have noted during anaconda installation (in my case: /home/ubuntu/anaconda3/bin/python). 
-##### Go to snappy folder and run
+When snap asks about configuration of python, do it and enter the path of python you have noted during anaconda installation (in my case: /home/ubuntu/anaconda3/bin/python).
+- allow /home/ubuntu/.snap folder to be modified by changing permissions
+```
+sudo chown -R ubuntu:ubuntu /home/ubuntu/.snap
+```
+- Navigate to SNAP installation directory, then run the snappy-conf file in the /bin directory to configure snap for python. This creates a snappy folder in conda environment
+```
+cd /opt/snap/bin
+./snappy-conf /home/ubuntu/anaconda3/envs/py2.7/bin/python /home/ubuntu/anaconda3/envs/py2.7/lib/python2.7/site-packages
+```
+Re-name snappy folders to snappy_esa so there is no interference with dask package, then alter the dask file to call snappy_esa instead of snappy
+```
+mv /home/ubuntu/anaconda3/envs/py2.7/lib/python2.7/site-packages/snappy /anaconda3/envs/py2.7/lib/python2.7/site-packages/snappy_esa
+mv /home/ubuntu/anaconda3/envs/py2.7/lib/python2.7/site-packages/snappy_esa/snappy.ini /anaconda3/envs/py2.7/lib/python2.7/site-packages/snappy_esa.ini
+nano /home/ubuntu/anaconda3/envs/py2.7/lib/python2.7/site-packages/dask/bytes/compression.py
+```
+If in the folder /home/ubuntu/.snap/snap-python, there is no snappy folder, then copy it over
+```
+cp /anaconda3/envs/py2.7/lib/python2.7/site-packages/snappy_esa /home/ubuntu/.snap/snap-python
+```
+- Go to snappy folder and run
+```
     python setup.py install
-##### Copy snappy folder to:
-    /home/ubuntu/anaconda2/lib/python2.7/site-packages
+```
 
 #### Installing SEN2COR:
 	mkdir /home/ubuntu/SEN2COR
@@ -122,14 +135,18 @@ sudo nano /etc/bash.bashrc
   - export SEN2COR_BIN=/home/ubuntu/anaconda2/lib/python2.7/site-packages/sen2cor-2.4.0-py2.7.egg/sen2cor
   - export GDAL_DATA=/home/ubuntu/anaconda2/lib/python2.7/site-packages/sen2cor-2.4.0-py2.7.egg/sen2cor/cfg/gdal_data
 
- Downgrade anaconda packages so they are compatible:
+Install necessary python packages:
  ```
- conda install gdal=2.1.0
+ pip install psutil
+ pip install scipy
+ pip install scikit-image
 ```
+**********
 Allow L2A_Process.py script to  be run:
 ```
 chmod +x /home/ubuntu/anaconda2/lib/python2.7/site-packages/sen2cor-2.4.0-py2.7.egg/sen2cor/L2A_Process.py
 ```
+**********
 Now you can check sen2cor with this command line:
 ```
 L2A_Process
