@@ -166,7 +166,7 @@ https://www.mathworks.com/help/compiler/install-the-matlab-runtime.html
  sudo nano ~/.profile
  Export LD_LIBRARY_PATH=$LD_LIBRARY_PATH/<path given at end of installation>
 ```
-9.	Install AWS CLI with ```pip install awscli –upgrade –user```
+9.	Install AWS CLI with ```pip install awscli --upgrade --user```
  - If pip gives error, open `/home/ubuntu/anaconda2/lib/python2.7/site-packages/pip/_vendor/distro.py`
  - edit the following line in __init__ method to be:
 ```
