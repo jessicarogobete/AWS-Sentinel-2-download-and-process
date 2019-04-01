@@ -59,9 +59,8 @@ $ python main.py
 	- Attach your instance key file
 
 ### Preparing your environment to run s2 toolbox processing
-5.	Transfer 7_Sen2cor_SL2P directory to instance with Filezilla
-6.	Remove Anaconda3 folder
-```     $ rm -rf anaconda3 ```
+5.	Transfer 7_Sen2cor_SL2P directory to instance using Filezilla
+6. Create a 
 7. edit ~/.profile file to prepend /home/ubuntu/anaconda2 to PATH so that when you call python from the command line it is the right version
 ```
     $ nano ~/.profile
