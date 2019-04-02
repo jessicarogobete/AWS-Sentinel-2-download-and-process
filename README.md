@@ -1,13 +1,57 @@
 # AWS-Sentinel-2-download-and-process
 
 ## What is it?
-This project runs a python script on an AWS EC2 instance which downloads Sentinel-2 data, processes the L1C data to L2A data with Sen2cor, then estimates biophysical parameters from the L2A data. The main script uploads each level of data to your chosen S3 bucket. Currently an AMI which works with this script is available as Sentinel-2 SL2P.
+This project functional Production server for biophysical parameter products from Sentinel L1C productrs. It works by running a python script on an AWS EC2 instance which downloads Sentinel-2 data from the requestor-pays S3 bucket, processes the L1C data to L2A data with Sen2cor, then estimates biophysical parameters from the L2A data  using the SL2P neural network. The main script uploads each level of data to your chosen S3 bucket. Currently an AMI which works with this script is available as Sentinel-2-SL2P.
 
 ## Use instructions
 
 First you need an EC2 ubuntu instance configured to run all the processes required by the script. The public AMI mentioned earlier is the simplest way to prepare this, but instructions are also provided below to set up the instance from scratch.
 
-### To access your EC2 Instance after set-up:
+### To access your launch an instance with the AMI then access it:
+1. Log in to Amazon EC2 and press launch instance
+    - search for the .......... AMI and select it
+    - Pick your instance type and storage. Uncheck the “Delete on Termination” box when adding your storage volume.
+    - The next step is only necessary if you want a GUI for your instance:
+    - For Step 6: Configure Security group, add the following rule:
+        Type: Custom TCP Rule
+        Port Range: 5901
+        Source: Anywhere
+    - After review and launch, create a new key file and save it to your computer (note where it is saved)
+
+2. Convert the .pem amazon key file to a .ppk with PuTTygen
+- On Windows:
+      - Download PuTTy and open the program PuTTygen
+      - select Load to load your .pem key file
+      - select save private key; say yes to the warning
+- On linux:
+      - in a terminal, execute the following command to download PuTTygen
+      ``` sudo apt-get install puttytools```
+      - the next command will convert your .pem file to a .ppk
+      ``` puttygen <name of your key>.pem -O private -o <name of your key>.ppk
+      
+3. Download PuTTy to connect to the EC2 instance
+    - In PuTTy, enter public DNS of instance under Host Name
+	- Switch to Connection category and enter how many seconds you want between keepalives
+	- Under Connection, expand the SSH sub-menu and go to Auth
+	- Attach your instance private key file
+	- If you want a GUI; Under Tunnels, add source port: 5902 with destination: <your instance’s IP address>:5901
+	- Save the session then click open
+	- When prompted for username, type ubuntu
+4.	For a GUI, download TightVNC for Windows or VNCViewer for Linux
+	- The address/name you want to connect to will be localhost:5902
+	
+	- See https://medium.com/@s.on/running-ubuntu-desktop-gui-aws-ec2-instance-on-windows-3d4d070da434 for more detailed instructions
+
+5. Download Filezilla for file transfer between your computer and EC2 Instance
+	- To connect to your instance, open the site manager and add a new site as follows:
+		- Host: <your instance’s Public DNS>
+		- Port: 22
+		- Logon Type: Key File
+		- User: ubuntu
+	- Attach your instance key file
+
+
+#### Accessing your instance again after first set-up
 1.	Open PuTTy
 2.	Click your saved session, then click Load
 3.	Select Open
@@ -26,48 +70,29 @@ This will restart the VNC connection and when  you re-connect through VNCViewer 
  Once the instance is set up, you only need to alter the parameters for the data you wish to download at the start of the main script, then call the script in the terminal with 
 
 ```
-$ python main.py
+cd ./Download_Process
+./main.sh
 ```
 
-## Installation Instructions
+## Installation Instructions without AMI
 
 ### Preparing your EC2 Instance
 1. Log in to Amazon EC2 and launch new Ubuntu instance
-    - Pick your instance type (I used t3.2xlarge) and storage. Uncheck the “Delete on Termination” box when adding your storage volume.
+    - Pick your instance type and storage. Uncheck the “Delete on Termination” box when adding your storage volume.
     - For Step 6: Configure Security group, add the following rule:
         Type: Custom TCP Rule
         Port Range: 5901
         Source: Anywhere
     - After review and launch, create a new key file and save it to your computer (note where it is saved)
-2.	Download PuTTy to connect to the EC2 instance
-    - In PuTTy, enter public DNS of instance under Host Name
-	- Switch to Connection category and enter how many seconds you want between keepalives
-	- Under Connection, expand the SSH sub-menu and go to Auth
-	- Attach your instance private key file
-	- Under Tunnels, add source port: 5902 with destination: <your instance’s IP address>:5901
-	- Save the session then click open
-	- When prompted for username, type ubuntu
-3.	For a GUI, download TightVNC for Windows or VNCViewer for Linux
-	- The address/name you want to connect to will be localhost:5902
-	- See https://medium.com/@s.on/running-ubuntu-desktop-gui-aws-ec2-instance-on-windows-3d4d070da434 for more detailed instructions
-4.	Download Filezilla for file transfer between your computer and EC2 Instance
-	- To connect to your instance, open the site manager and add a new site as follows:
-		- Host: <your instance’s Public DNS>
-		- Port: 22
-		- Logon Type: Key File
-		- User: ubuntu
-	- Attach your instance key file
 
 ### Preparing your environment to run s2 toolbox processing
-5.	Transfer 7_Sen2cor_SL2P directory to instance using Filezilla
+5. Transfer 7_Sen2cor_SL2P directory to instance using Filezilla
 6. Create an anaconda environment with python 2.7 and the necessary libraries
 ```
 conda create -n 2.7 python=2.7 gdal=2.1.0 pytables
 source activate 2.7
 
 ```
-
-With this way, we obtain a functional Production server for L2A sentinel products
 
 Installation of SSH (for remote access to the server):
 ```
@@ -120,7 +145,10 @@ cp /anaconda3/envs/2.7/lib/python2.7/site-packages/snappy_esa /home/ubuntu/.snap
 	cd /home/ubuntu/SEN2COR
 	cd /home/ubuntu/SEN2COR
 ```
-Copy over sen2cor-2.4.0.tar.gz file to instance from your computer
+Copy over sen2cor-2.4.0.tar.gz file to instance from your computer or
+```
+wget https://github.com/jessicarogobete/AWS-Sentinel-2-download-and-process/releases/download/0.0.0/sen2cor-2.4.0.tar.gz
+```
 ```
 tar xvzf sen2cor-2.4.0.tar.gz
 	cd sen2cor-2.4.0
