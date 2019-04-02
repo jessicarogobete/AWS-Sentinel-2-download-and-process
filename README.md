@@ -1,7 +1,7 @@
 # AWS-Sentinel-2-download-and-process
 
 ## What is it?
-This project functional Production server for biophysical parameter products from Sentinel L1C productrs. It works by running a python script on an AWS EC2 instance which downloads Sentinel-2 data from the requestor-pays S3 bucket, processes the L1C data to L2A data with Sen2cor, then estimates biophysical parameters from the L2A data  using the SL2P neural network. The main script uploads each level of data to your chosen S3 bucket. Currently an AMI which works with this script is available as Sentinel-2-SL2P.
+This project functional Production server for biophysical parameter products from Sentinel L1C productrs. It works by running a python script on an AWS EC2 instance which downloads Sentinel-2 data from the requestor-pays S3 bucket, processes the L1C data to L2A data with Sen2cor, then estimates biophysical parameters from the L2A data  using the SL2P neural network. The main script uploads each level of data to your chosen S3 bucket. Currently an AMI which works with this script is available as AWS-S2-Download-Process in the ca-central-1 region.
 
 ## Use instructions
 
@@ -9,7 +9,7 @@ First you need an EC2 ubuntu instance configured to run all the processes requir
 
 ### To access your launch an instance with the AMI then access it:
 1. Log in to Amazon EC2 and press launch instance
-    - search for the .......... AMI and select it
+    - search for the AWS-S2-Download-Process AMI and select it
     - Pick your instance type and storage. Uncheck the “Delete on Termination” box when adding your storage volume.
     - The next step is only necessary if you want a GUI for your instance:
     - For Step 6: Configure Security group, add the following rule:
