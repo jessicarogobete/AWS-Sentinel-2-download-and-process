@@ -115,14 +115,17 @@ cp /anaconda3/envs/2.7/lib/python2.7/site-packages/snappy_esa /home/ubuntu/.snap
 ```
 
 #### Installing SEN2COR:
+```
 	mkdir /home/ubuntu/SEN2COR
 	cd /home/ubuntu/SEN2COR
 	cd /home/ubuntu/SEN2COR
-	copy over sen2cor-2.4.0.tar.gz file to instance from your computer
-	tar xvzf sen2cor-2.4.0.tar.gz
+```
+Copy over sen2cor-2.4.0.tar.gz file to instance from your computer
+```
+tar xvzf sen2cor-2.4.0.tar.gz
 	cd sen2cor-2.4.0
 	python setup.py install
-	
+```	
 - If there is an error with the last step, you have probably a problem with your python path. 
 
 - Define environment variables:
@@ -141,6 +144,7 @@ Install necessary python packages:
  pip install scipy
  pip install scikit-image
  pip install pebble
+ pip install futures
 ```
 Make the L2A_Process script executable
 ```
