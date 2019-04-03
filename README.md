@@ -66,8 +66,8 @@ If something goes wrong with the GUI, close the window and in the PuTTy terminal
 vncserver –kill :1
 vncserver –geometry <the dimensions of your monitor> :1
 ```
-This will restart the VNC connection and when  you re-connect through VNCViewer it should work properly.
- Once the instance is set up, you only need to alter the parameters for the data you wish to download at the start of the main script, then call the script in the terminal with 
+This will restart the VNC connection and when  you re-connect through VNCViewer it should work properly. You will also need aws cli configured to your AWS account with the command ```aws configure```
+ Once the instance is set up, you only need to alter the parameters for the data you wish to download at the start of the main.sh script, then call the script in the terminal with 
 
 ```
 cd ./Download_Process
