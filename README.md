@@ -1,7 +1,7 @@
 # AWS-Sentinel-2-download-and-process
 
 ## What is it?
-This project functional Production server for biophysical parameter products from Sentinel L1C productrs. It works by running a python script on an AWS EC2 instance which downloads Sentinel-2 data from the requestor-pays S3 bucket, processes the L1C data to L2A data with Sen2cor, then estimates biophysical parameters from the L2A data  using the SL2P neural network. The main script uploads each level of data to your chosen S3 bucket. Currently an AMI which works with this script is available as AWS-S2-Download-Process in the ca-central-1 region.
+This project is a functional production server for biophysical parameter products from Sentinel L1C productrs. It works by running a python script on an AWS EC2 instance which downloads Sentinel-2 data from the requestor-pays S3 bucket, processes the L1C data to L2A data with Sen2cor, then estimates biophysical parameters from the L2A data  using the SL2P neural network. The main script uploads each level of data to your chosen S3 bucket. Currently an AMI which works with this script is available as AWS-S2-Download-Process in the ca-central-1 region.
 
 ## Use instructions
 
