@@ -61,6 +61,8 @@ After connecting to the instance with PuTTy, the GUI can be accessed by:
 2.	Either loading the previously saved session OR typing localhost:5902 in the address bar
 3.	It will prompt for your password before opening the GUI window
 
+NOTE: if you stop then restart your instance, the public DNS will change and you will need to re-enter it in PuTTy then save the session again
+
 If something goes wrong with the GUI, close the window and in the PuTTy terminal window, type the following commands:
 ```
 vncserver –kill :1
